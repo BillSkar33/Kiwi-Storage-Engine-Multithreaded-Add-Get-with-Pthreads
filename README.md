@@ -31,18 +31,59 @@ Modern storage systems must handle concurrent reads and writes with predictable 
 └─ README.md               # You are here
 ```
 
-## Build
-### Prerequisites
-- GCC (or Clang), GNU Make
-- Linux with **pthreads** support
-- Optional: gnuplot/Excel for plotting
 
-### Compile
-```bash
-make all          # builds engine and kiwi-bench
-# or
-make -C src/bench
-```
+## Build
+
+### Option A — Setup with VMware Kiwi VM (recommended)
+1. **Download VMware VM files.**  
+   Folder: https://drive.google.com/drive/folders/1PZfErGdxHmsBYaNRyp2jDGt1h26TjZt8
+
+2. **Download the Kiwi VM image.**  
+   Image: https://drive.google.com/file/d/1Fi1dLgQ8b090MdA2hVhgwKR4aMQtkSxl/view?usp=drive_link
+
+3. **Import the Kiwi VM into VMware.**  
+   Open VMware → *File* → *Open…* → select the downloaded Kiwi image → finish the import.
+
+4. **Credentials.**  
+   - For package installation: user **root**, password **myy601**.  
+   - For normal usage: user **myy601**, password **myy601**.
+
+5. **Transfer the project files into the VM.** Choose one of the following:
+   - **Shared folder**: enable VMware shared folders and copy the repository contents into the VM.  
+   - **SCP** (from host to VM):  
+     ```bash
+     scp -r /path/to/your/repo/ myy601@<vm_ip>:/home/myy601/
+     ```
+
+6. **Replace the engine files.**  
+   Copy the relevant source files from your repository into the VM’s `kiwi-source/` tree, **replacing** the original files at the appropriate paths (as instructed by the assignment). Keep the directory structure intact.
+
+7. **Install build tools (if missing).**
+   ```bash
+   # login as root for package installation
+   apt update && apt install -y build-essential make gcc g++ git
+   ```
+
+8. **Compile Kiwi and the benchmark.**
+   ```bash
+   # switch to the working user if needed
+   su - myy601
+   cd ~/kiwi-source
+   make clean && make all -j"$(nproc)"
+   ```
+
+9. **Verify artifacts.**
+   ```bash
+   ls -l ./bin || ls -l .
+   ```
+
+### Option B — Native Linux (no VM)
+- Requirements: GCC/Clang, GNU Make, Linux with pthreads.  
+- Clone the repo and integrate your changes into `kiwi-source/`, then:
+  ```bash
+  cd kiwi-source
+  make clean && make all -j"$(nproc)"
+  ```
 
 ## Usage
 ### CLI
