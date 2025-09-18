@@ -17,20 +17,6 @@ Modern storage systems must handle concurrent reads and writes with predictable 
 - **Benchmarking CLI** with modes: `read`, `write`, `readwrite` and knobs for thread count, randomness, and read percentage.
 - **Reproducible runs** and environment printout to ease comparisons.
 
-## Repository layout (suggested)
-```
-.
-├─ src/
-│  ├─ engine/              # Kiwi engine code we extended (db.c/.h, memtable.c/.h, sst.c/.h, …)
-│  ├─ bench/               # Benchmark harness: kiwi-bench (main, parse args, timers, results)
-│  └─ sync/                # RWLocker (rwlocker.c/.h), error handling, timer helpers
-├─ include/                # Public headers
-├─ scripts/                # Convenience scripts for experiment runs and CSV exports
-├─ report/                 # PDF report and figures (results, plots)
-├─ Makefile                # Build targets for engine and bench
-└─ README.md               # You are here
-```
-
 
 ## Build
 
